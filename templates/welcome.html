@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Bookshelf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        li {
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 16px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Bookshelf</h1>
+    <ul>
+        {% for book in books %}
+            <li>
+                <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
+                <h2>{{ book.name }}</h2>
+                <p>By {{ book.author_name }}</p>
+                <p class="price">Gel {{ book.price }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'admin:index' %}" style="text-decoration: none;">Go to Admin Panel</a>
+</body>
+</html>
