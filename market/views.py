@@ -34,6 +34,6 @@ def book_detail(request, book_id):
 
 
 def welcome(request):
-    books = Book.objects.all()  # Get all books
+    books = Book.objects.all()
     context = {'books': books}
     return render(request, 'welcome.html', context)
