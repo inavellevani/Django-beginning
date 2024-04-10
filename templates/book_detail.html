@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ book.name }}</title>
+    <style>
+    </style>
 </head>
 <body>
-
+    <h1>{{ book.name }}</h1>
+    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
+    <p>By {{ book.author_name }}</p>
+    <p>Category: {{ book.category }}</p>
+    <p>Page Count: {{ book.page_count }}</p>
+    <p>Price: Gel {{ book.price }}</p>
 </body>
 </html>

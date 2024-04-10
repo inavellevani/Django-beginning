@@ -17,22 +17,23 @@ def book_list(request):
     except EmptyPage:
         page_obj = paginator.get_page(paginator.num_pages)
 
-    context = {'books': page_obj}
-    if request.accepted_renderer.format == 'html':
-        return render(request, 'welcome.html', context)
+    if request.headers.get('Accept') == 'application/json':
+        data = serializers.serialize('json', page_obj)
+        return JsonResponse(data, safe=False)
 
-    data = serializers.serialize('json', page_obj)
-    return JsonResponse(data, safe=False)
+    else:
+        context = {'books': page_obj}
+        return render(request, 'welcome.html', context)
 
 
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    context = {'book': book}
-    if request.accepted_renderer.format == 'html':
+    if request.headers.get('Accept') == 'application/json':
+        data = serializers.serialize('json', [book])
+        return JsonResponse(data, safe=False)
+    else:
+        context = {'book': book}
         return render(request, 'book_detail.html', context)
-
-    data = serializers.serialize('json', [book])
-    return JsonResponse(data, safe=False)
 
 
 def welcome(request):

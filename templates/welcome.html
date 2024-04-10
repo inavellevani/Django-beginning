@@ -59,20 +59,57 @@
             color: #007bff;
             font-weight: bold;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin: 0 4px;
+            border-radius: 4px;
+        }
+        .pagination span {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to My Bookshelf</h1>
     <ul>
-        {% for book in books %}
+        {% for book in page_obj %}
             <li>
-                <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
-                <h2>{{ book.name }}</h2>
+                <a href="{% url 'market:book_detail' book.id %}">
+                    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
+                    <h2>{{ book.name }}</h2>
+                </a>
                 <p>By {{ book.author_name }}</p>
                 <p class="price">Gel {{ book.price }}</p>
             </li>
         {% endfor %}
     </ul>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for page_num in page_obj.paginator.page_range %}
+            {% if page_num == page_obj.number %}
+                <span>{{ page_num }}</span>
+            {% else %}
+                <a href="?page={{ page_num }}">{{ page_num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
     <a href="{% url 'admin:index' %}" style="text-decoration: none;">Go to Admin Panel</a>
 </body>
 </html>
