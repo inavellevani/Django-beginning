@@ -1,6 +1,6 @@
 # Django Bookstore Project
 
-This Django project serves as a simple bookstore API with endpoints to list books and retrieve detailed book information. It also includes a welcome page to showcase available books.
+This Django project serves as a simple bookstore API with endpoints to list books and retrieve detailed book information. It also includes a welcome page to showcase available books with pagination and book detail links.
 
 
 ## Installation and Setup
@@ -61,13 +61,18 @@ This Django project serves as a simple bookstore API with endpoints to list book
 <br />
 
 ### Views
-• **book_list:** View to list all books in JSON format.
+• **book_list:** View to list all books in JSON format. Also handles HTML rendering for the welcome page with pagination.
 
-• **book_detail:** View to retrieve detailed information about a specific book in JSON format.
+• **book_detail:** View to retrieve detailed information about a specific book in JSON format and render the book detail page.
 
-• **welcome:** View to render a welcome page (templates/welcome.html) showcasing available books.
+• **welcome:** View to handle the book listing functionality, including pagination.
 
 <br />
+
+### Templates
+• **welcome.html:** Template for the welcome page, displaying paginated book listings with links to book details.
+
+• **book_detail.html:** Template for displaying detailed information about a specific book.
 
 ### Admin Panel
 
