@@ -20,9 +20,8 @@ def book_list(request):
     if request.headers.get('Accept') == 'application/json':
         data = serializers.serialize('json', page_obj)
         return JsonResponse(data, safe=False)
-
     else:
-        context = {'books': page_obj}
+        context = {'page_obj': page_obj}
         return render(request, 'welcome.html', context)
 
 

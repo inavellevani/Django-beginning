@@ -84,7 +84,7 @@
     <ul>
         {% for book in page_obj %}
             <li>
-                <a href="{% url 'market:book_detail' book.id %}">
+                <a href="{% url 'book_detail' book.id %}">
                     <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
                     <h2>{{ book.name }}</h2>
                 </a>
