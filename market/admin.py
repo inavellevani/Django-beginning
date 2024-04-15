@@ -34,10 +34,11 @@ class BookForm(forms.ModelForm):
 
 
 class BooksAdmin(admin.ModelAdmin):
-    form = BookForm
     list_display = ('name', 'author_name', 'price', 'cover_type')
     search_fields = ('name', 'author_name')
     filter_horizontal = ('category',)
 
 
 admin.site.register(Book, BooksAdmin)
+admin.site.register(Author)
+admin.site.register(Category)

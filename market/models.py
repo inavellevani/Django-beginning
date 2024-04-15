@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from market.genres import genre_choices
 import os
 
 
@@ -13,12 +12,7 @@ class Author(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(
-        max_length=100,
-        choices=genre_choices,
-        verbose_name="Category Name",
-
-    )
+    name = models.CharField(max_length=100, verbose_name="Category Name", unique=True)
 
     def __str__(self):
         return self.name
