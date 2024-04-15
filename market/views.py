@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from market.models import Book, Author, Category
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 
 
 def book_list(request):
@@ -49,4 +48,3 @@ def book_detail(request, book_id):
 
 def welcome(request):
     return book_list(request)
-
