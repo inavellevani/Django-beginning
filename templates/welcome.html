@@ -80,6 +80,7 @@
     </style>
 </head>
 <body>
+    <h1>Welcome to My Bookshelf</h1>
     <form method="get" action="">
         <label for="author">Filter by Author:</label>
         <input type="text" id="author" name="author" value="{{ request.GET.author }}">
@@ -89,7 +90,6 @@
 
         <button type="submit">Apply Filters</button>
     </form>
-    <h1>Welcome to My Bookshelf</h1>
     <ul>
         {% for book in page_obj %}
             <li>

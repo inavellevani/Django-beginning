@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from market.models import Book
+from market.models import Book, Author, Category
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 
 def book_list(request):
@@ -12,11 +13,16 @@ def book_list(request):
 
     author_name = request.GET.get('author')
     if author_name:
-        books = books.filter(author_name__name__icontains=author_name)
+        authors = Author.objects.filter(name__icontains=author_name)
+        books = books.filter(author_name__in=authors)
 
     category_name = request.GET.get('category')
     if category_name:
-        books = books.filter(category__name__icontains=category_name)
+        categories = Category.objects.filter(name__icontains=category_name)
+        books = books.filter(category__in=categories)
+
+    paginator = Paginator(books, 3)
+    page_number = request.GET.get('page')
 
     try:
         page_obj = paginator.get_page(page_number)
@@ -45,3 +51,4 @@ def book_detail(request, book_id):
 
 def welcome(request):
     return book_list(request)
+
