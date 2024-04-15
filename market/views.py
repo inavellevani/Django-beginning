@@ -10,6 +10,14 @@ def book_list(request):
     paginator = Paginator(books, 3)
     page_number = request.GET.get('page')
 
+    author_name = request.GET.get('author')
+    if author_name:
+        books = books.filter(author_name__name__icontains=author_name)
+
+    category_name = request.GET.get('category')
+    if category_name:
+        books = books.filter(category__name__icontains=category_name)
+
     try:
         page_obj = paginator.get_page(page_number)
     except PageNotAnInteger:
