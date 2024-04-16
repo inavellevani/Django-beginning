@@ -1,0 +1,1 @@
+choices=[('HC', 'Hardcover'), ('PB', 'Paperback'), ('SP', 'Special')]

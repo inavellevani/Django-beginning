@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from market.choices import choices as cover_choices
 import os
 
 
@@ -22,14 +23,14 @@ class Category(models.Model):
 
 
 class Book(models.Model):
+    author_name = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', verbose_name="Author")
+    category = models.ManyToManyField(Category, verbose_name="Categories")
     name = models.CharField(max_length=100, verbose_name="Book Title")
     page_count = models.IntegerField(verbose_name="Number of Pages")
-    category = models.ManyToManyField(Category, verbose_name="Categories")
-    author_name = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', verbose_name="Author")
     price = models.IntegerField(verbose_name="Price")
     cover_type = models.CharField(
         max_length=2,
-        choices=[('HC', 'Hardcover'), ('PB', 'Paperback'), ('SP', 'Special')],
+        choices=cover_choices,
         default='HC',
         verbose_name="Cover type"
     )
