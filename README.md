@@ -78,6 +78,15 @@ This Django project serves as a simple bookstore API with endpoints to list book
 
 • **book_detail.html:** Template for displaying detailed information about a specific book, including its categories.
 
+<br />
+
+### Features
+• Language changing functionality to switch between different languages on the website.
+
+• Use of **get_lazy_translation** for handling lazy translations in Django templates.
+
+<br />
+
 ### Admin Panel
 
 Access the Django admin panel at http://127.0.0.1:8000/admin/ to manage books.
