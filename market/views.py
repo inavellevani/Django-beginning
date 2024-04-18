@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from market.models import Book, Author, Category
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import activate, get_language_from_request
 
 
 def book_list(request):
@@ -48,3 +49,10 @@ def book_detail(request, book_id):
 
 def welcome(request):
     return book_list(request)
+
+
+def set_language(request):
+    language = request.GET.get('language', None)
+    if language:
+        activate(language)
+    return redirect(request.META.get('HTTP_REFERER', '/'))

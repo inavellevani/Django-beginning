@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Bookshelf</title>
+    <title>{% trans "Welcome to My Bookshelf" %}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,34 +78,59 @@
             background-color: #007bff;
             color: #fff;
         }
+        .language-switcher {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .language-switcher a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .language-switcher a:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Bookshelf</h1>
+    <div class="language-switcher">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% for lang_code, lang_name in LANGUAGES %}
+            {% if lang_code != LANGUAGE_CODE %}
+                <a href="{% url 'set_language' %}?language={{ lang_code }}">{{ lang_name }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <h1>{% trans "Welcome to My Bookshelf" %}</h1>
     <form method="get" action="">
-        <label for="author">Filter by Author:</label>
+        <label for="author">{% trans "Filter by Author" %}:</label>
         <input type="text" id="author" name="author" value="{{ request.GET.author }}">
 
-        <label for="category">Filter by Category:</label>
+        <label for="category">{% trans "Filter by Category" %}:</label>
         <input type="text" id="category" name="category" value="{{ request.GET.category }}">
 
-        <button type="submit">Apply Filters</button>
+        <button type="submit">{% trans "Apply Filters" %}</button>
     </form>
     <ul>
         {% for book in page_obj %}
             <li>
                 <a href="{% url 'book_detail' book.id %}">
-                    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
+                    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} {% trans "cover" %}">
                     <h2>{{ book.name }}</h2>
                 </a>
-                <p>By {{ book.author_name }}</p>
+                <p>{% trans "By" %} {{ book.author_name }}</p>
                 <p class="price">Gel {{ book.price }}</p>
             </li>
         {% endfor %}
     </ul>
     <div class="pagination">
         {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            <a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
         {% endif %}
 
         {% for page_num in page_obj.paginator.page_range %}
@@ -116,9 +142,9 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
         {% endif %}
     </div>
-    <a href="{% url 'admin:index' %}" style="text-decoration: none;">Go to Admin Panel</a>
+    <a href="{% url 'admin:index' %}" style="text-decoration: none;">{% trans "Go to Admin Panel" %}</a>
 </body>
 </html>
