@@ -13,6 +13,10 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _("Author")
+        verbose_name_plural = _("Authors")
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Category Name"), unique=True)
@@ -39,7 +43,8 @@ class Book(models.Model):
     image = models.ImageField(upload_to='', blank=True, null=True, verbose_name=_("Book Cover"))
 
     class Meta:
-        verbose_name =_("Book")
+        verbose_name = _("Book")
+        verbose_name_plural = _("Books")
         ordering = ["-price"]
 
     def __str__(self):
@@ -49,15 +54,15 @@ class Book(models.Model):
 def register_translations():
     @register(Author)
     class AuthorTranslationOptions(TranslationOptions):
-        fields = ('name',)
+        exclude = ('name',)
 
     @register(Category)
     class CategoryTranslationOptions(TranslationOptions):
-        fields = ('name',)
+        exclude = ('name',)
 
     @register(Book)
     class BookTranslationOptions(TranslationOptions):
-        fields = ('name', 'cover_type')
+        exclude = ('name', 'cover_type')
 
 
 @receiver(pre_delete, sender=Book)

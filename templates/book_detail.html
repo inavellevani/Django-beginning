@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <title>{{ book.name }}</title>
@@ -29,16 +30,16 @@
 </head>
 <body>
     <h1>{{ book.name }}</h1>
-    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }} cover">
-    <p>By {{ book.author_name }}</p>
-    <p>Categories:</p>
+    <img src="{{ MEDIA_URL }}{{ book.image.url }}" alt="{{ book.name }}{% trans "cover" %}">
+    <p>{% trans "By" %}: {{ book.author_name }}</p>
+    <p>{% trans "Categories" %}:</p>
     <ul class="categories">
         {% for category in book.category.all %}
             <li>{{ category.name }}</li>
         {% endfor %}
     </ul>
-    <p>Page Count: {{ book.page_count }}</p>
-    <p>Price: Gel {{ book.price }}</p>
-    <p>Cover Type: {{ book.get_cover_type_display }}</p>
+    <p>{% trans "Page Count" %}: {{ book.page_count }}</p>
+    <p>{% trans "Price" %}: Gel {{ book.price }}</p>
+    <p>{% trans "Cover Type" %}: {{ book.get_cover_type_display }}</p>
 </body>
 </html>

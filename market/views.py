@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from market.models import Book, Author, Category
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.utils.translation import activate, get_language_from_request
+from django.utils.translation import activate
 
 
 def book_list(request):
